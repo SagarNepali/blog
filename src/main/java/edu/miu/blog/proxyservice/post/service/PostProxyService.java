@@ -10,9 +10,9 @@ public interface PostProxyService {
 
     Post getById(Long id);
 
-    Post update(Long id, Post p);
+    void update(Long id, Post p);
 
     void delete(Long id);
 
-    Post save(Post p);
+    void save(Post p);
 }
