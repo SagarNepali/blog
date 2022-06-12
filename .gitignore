@@ -21,6 +21,8 @@
 .project
 .classpath
 
+#ds store
+**/.DS_Store
 
 # Package Files #
 *.jar

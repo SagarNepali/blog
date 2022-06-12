@@ -18,6 +18,7 @@ public class CommentProxyServiceImpl implements CommentProxyService {
 
     private static final String COMMENT_GET_ALL_URI ="http://localhost:8083/api/v1/comments";
     private static final String COMMENT_WITH_ID_URI ="http://localhost:8083/api/v1/comments/{id}";
+    private static final String COMMENT_WITH_POSTID_URI ="http://localhost:8083/api/v1/comments/post/{id}";
 
     @Autowired
     RestTemplate restTemplate;
@@ -26,6 +27,14 @@ public class CommentProxyServiceImpl implements CommentProxyService {
     public List<Comment> getAll(){
         ResponseEntity<List<Comment>> response =
                 restTemplate.exchange(COMMENT_GET_ALL_URI, HttpMethod.GET, null,
+                        new ParameterizedTypeReference<List<Comment>>() {});
+        return response.getBody();
+    }
+
+    @Override
+    public List<Comment> getAllCommentByPostId(Long id){
+        ResponseEntity<List<Comment>> response =
+                restTemplate.exchange(COMMENT_WITH_POSTID_URI, HttpMethod.GET, null,
                         new ParameterizedTypeReference<List<Comment>>() {});
         return response.getBody();
     }

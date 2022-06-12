@@ -2,7 +2,7 @@ spring:
   application:
     name: blog
   datasource:
-    password: root
+    password: Groople123
     username: root
     url: jdbc:mysql://localhost:3306/blog
   jpa:

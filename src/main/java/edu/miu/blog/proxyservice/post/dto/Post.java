@@ -2,9 +2,11 @@ package edu.miu.blog.proxyservice.post.dto;
 
 
 import com.fasterxml.jackson.annotation.*;
+import edu.miu.blog.proxyservice.comment.dto.Comment;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -18,5 +20,5 @@ public class Post {
     private Long userId;
     @JsonProperty("post_date")
     private Date postDate;
-
+    private List<Comment> commentList;
 }

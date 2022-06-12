@@ -14,7 +14,7 @@ public class User {
     private Long id;
     private String firstName;
     private String lastName;
-    private Address address;
+    private Address addressDTO;
     private String email;
     private String username;
     private String password;

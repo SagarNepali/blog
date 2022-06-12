@@ -26,9 +26,14 @@ public class BlogService {
     @Autowired
     UserProxyService userProxyService;
 
+
     public List<Post> getAllPosts(){
         return postProxyService.getAll();
     }
+
+    public List<Post> getAllPostsByUserId(Long id){ return postProxyService.getAllPostByUserId(id);}
+
+    public List<Comment> getAllCommentByPostId(Long id){ return commentProxyService.getAllCommentByPostId(id);}
 
     public void savePost(Post p){
         postProxyService.save(p);
@@ -39,7 +44,13 @@ public class BlogService {
     }
 
     public Post getPostById(Long id){
-        return postProxyService.getById(id);
+        Post p =  postProxyService.getById(id);
+        List<Comment> commentList;
+        if(p != null){
+            commentList = commentProxyService.getAllCommentByPostId(id);
+            p.setCommentList(commentList);
+        }
+        return p;
     }
 
     public List<Comment> getAllComments(){

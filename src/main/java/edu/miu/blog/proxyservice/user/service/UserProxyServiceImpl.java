@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 @Service
-public class UserProxyServiceImpl implements UserProxyService<User> {
+public class UserProxyServiceImpl implements UserProxyService {
 
     @Autowired
     private RestTemplate restTemplate;

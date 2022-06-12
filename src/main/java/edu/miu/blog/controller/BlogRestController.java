@@ -7,6 +7,8 @@ import edu.miu.blog.proxyservice.post.service.PostProxyService;
 import edu.miu.blog.proxyservice.user.dto.User;
 import edu.miu.blog.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,18 +21,59 @@ public class BlogRestController {
     BlogService blogService;
 
     @GetMapping("/posts")
-    public List<Post> getAllPosts(){
+    public List<Post> getAllPosts() {
         return blogService.getAllPosts();
     }
 
-    @GetMapping("/comments")
-    public List<Comment> getAllComments(){
-        return blogService.getAllComments();
-    }
+
 
     @GetMapping("/users")
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers() {
         return blogService.getAllUsers();
     }
+
+    @PostMapping("/users")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<?> createUser(@RequestBody User user) {
+        blogService.saveUser(user);
+        return new ResponseEntity<>("User created", HttpStatus.CREATED);
+    }
+
+    @PostMapping("/posts")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<?> createPost(@RequestBody Post post) {
+        blogService.savePost(post);
+        return new ResponseEntity<>("Post created", HttpStatus.CREATED);
+    }
+
+    @PostMapping("/comments")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<?> createComment(@RequestBody Comment comment, @PathVariable("userId") Long userId, @PathVariable("postId") Long postId) {
+        comment.setUserId(userId);
+        comment.setPostId(postId);
+        blogService.saveComment(comment);
+        return new ResponseEntity<>("Post created", HttpStatus.CREATED);
+    }
+
+
+    @GetMapping("/posts/{postId}")
+    public Post getPostById(@PathVariable("postId") Long postId){
+        return blogService.getPostById(postId);
+    }
+
+    @GetMapping("/posts/user/{userId}")
+    public List<Post> getAllPostByUserId(@PathVariable("userId") Long userId){
+        return blogService.getAllPostsByUserId(userId);
+    }
+
+    //show all comment of a Post
+    @GetMapping("/posts/{postId}/comments")
+    public List<Comment> getAllCommentByPostId(@PathVariable("postId") Long postId){
+        return blogService.getAllCommentByPostId(postId);
+    }
+
+
+
+
 
 }
