@@ -25,8 +25,6 @@ public class BlogRestController {
         return blogService.getAllPosts();
     }
 
-
-
     @GetMapping("/users")
     public List<User> getAllUsers() {
         return blogService.getAllUsers();
@@ -46,8 +44,8 @@ public class BlogRestController {
         return new ResponseEntity<>("Post created", HttpStatus.CREATED);
     }
 
-    @PostMapping("users/{userId}/posts/{postId}/comments")
-     @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/users/{userId}/posts/{postId}/comments")
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> createComment(@RequestBody Comment comment, @PathVariable("userId") Long userId, @PathVariable("postId") Long postId) {
         comment.setUserId(userId);
         comment.setPostId(postId);
