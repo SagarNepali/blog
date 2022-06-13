@@ -7,6 +7,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
@@ -33,8 +35,14 @@ public class CommentProxyServiceImpl implements CommentProxyService {
 
     @Override
     public List<Comment> getAllCommentByPostId(Long id){
+        UriComponents uri = UriComponentsBuilder
+                .fromHttpUrl(COMMENT_WITH_POSTID_URI)
+                .buildAndExpand(id);
+
+        String requiredUrl = uri.toUriString();
+
         ResponseEntity<List<Comment>> response =
-                restTemplate.exchange(COMMENT_WITH_POSTID_URI, HttpMethod.GET, null,
+                restTemplate.exchange(requiredUrl, HttpMethod.GET, null,
                         new ParameterizedTypeReference<List<Comment>>() {});
         return response.getBody();
     }
