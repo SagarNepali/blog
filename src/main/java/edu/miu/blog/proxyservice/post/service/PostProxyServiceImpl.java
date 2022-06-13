@@ -8,8 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -17,7 +20,7 @@ public class PostProxyServiceImpl implements PostProxyService{
 
     private static final String POST_GET_ALL_URI="http://localhost:8081/api/v1/posts";
     private static final String POST_WITH_ID_URI="http://localhost:8081/api/v1/posts/{id}";
-    private static final String POST_GET_ALLPOSTBYUSERID_URI="http://localhost:8081/api/v1/posts/user/{id}";
+    private static final String POST_GET_ALLPOSTBYUSERID_URI="http://localhost:8081/api/v1/posts/user/{userId}";
 
     @Autowired
     RestTemplate restTemplate;
@@ -31,7 +34,9 @@ public class PostProxyServiceImpl implements PostProxyService{
 
     @Override
     public List<Post> getAllPostByUserId(Long userId){
-        ResponseEntity<List<Post>> response  = restTemplate.exchange(POST_GET_ALLPOSTBYUSERID_URI, HttpMethod.GET, null, new ParameterizedTypeReference<List<Post>>(){});
+        Map<String, Long> params = new HashMap<>();
+        params.put("userId",userId);
+        ResponseEntity<List<Post>> response  = restTemplate.exchange(POST_GET_ALLPOSTBYUSERID_URI, HttpMethod.GET, null, new ParameterizedTypeReference<List<Post>>(){},params);
         return response.getBody();
     }
 

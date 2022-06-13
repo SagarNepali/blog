@@ -11,7 +11,9 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,7 +22,7 @@ public class CommentProxyServiceImpl implements CommentProxyService {
 
     private static final String COMMENT_GET_ALL_URI ="http://localhost:8083/api/v1/comments";
     private static final String COMMENT_WITH_ID_URI ="http://localhost:8083/api/v1/comments/{id}";
-    private static final String COMMENT_WITH_POSTID_URI ="http://localhost:8083/api/v1/comments/post/{id}";
+    private static final String COMMENT_WITH_POSTID_URI ="http://localhost:8083/api/v1/comments/post/{postId}";
 
     @Autowired
     RestTemplate restTemplate;
@@ -34,18 +36,15 @@ public class CommentProxyServiceImpl implements CommentProxyService {
     }
 
     @Override
-    public List<Comment> getAllCommentByPostId(Long id){
-        UriComponents uri = UriComponentsBuilder
-                .fromHttpUrl(COMMENT_WITH_POSTID_URI)
-                .buildAndExpand(id);
-
-        String requiredUrl = uri.toUriString();
-
+    public List<Comment> getAllCommentByPostId(Long postId){
+        Map<String, Long> params = new HashMap<>();
+        params.put("postId",postId);
         ResponseEntity<List<Comment>> response =
-                restTemplate.exchange(requiredUrl, HttpMethod.GET, null,
-                        new ParameterizedTypeReference<List<Comment>>() {});
+                restTemplate.exchange(COMMENT_WITH_POSTID_URI, HttpMethod.GET, null,
+                        new ParameterizedTypeReference<List<Comment>>() {},params);
         return response.getBody();
     }
+
 
     @Override
     public Long add(Comment comment){
