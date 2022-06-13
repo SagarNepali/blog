@@ -23,6 +23,7 @@ public class CommentProxyServiceImpl implements CommentProxyService {
     private static final String COMMENT_GET_ALL_URI ="http://localhost:8083/api/v1/comments";
     private static final String COMMENT_WITH_ID_URI ="http://localhost:8083/api/v1/comments/{id}";
     private static final String COMMENT_WITH_POSTID_URI ="http://localhost:8083/api/v1/comments/post/{postId}";
+    private static final String COMMENT_WITH_USERID_URI = "http://localhost:8083/api/v1/comments/user/{userId}";
 
     @Autowired
     RestTemplate restTemplate;
@@ -66,5 +67,14 @@ public class CommentProxyServiceImpl implements CommentProxyService {
         restTemplate.delete(COMMENT_WITH_ID_URI, id);
     }
 
+    @Override
+    public void deleteAllCommentByUserId(Long userId){
+        restTemplate.delete(COMMENT_WITH_USERID_URI,userId);
+    }
+
+    @Override
+    public void deleteAllCommentByPostId(Long postId){
+        restTemplate.delete(COMMENT_WITH_POSTID_URI,postId);
+    }
 
 }

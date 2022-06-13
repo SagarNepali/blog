@@ -56,6 +56,11 @@ public class PostProxyServiceImpl implements PostProxyService{
     }
 
     @Override
+    public void deleteAllPostsByUserId(Long userId){
+        restTemplate.delete(POST_GET_ALL_POST_BY_USER_ID_URI,userId);
+    }
+
+    @Override
     public void save(Post p) {
         restTemplate.postForObject(POST_GET_ALL_URI,p, Post.class);
     }

@@ -15,6 +15,10 @@ public interface  CommentProxyService {
 
     void delete(Long id);
 
+    void deleteAllCommentByUserId(Long id);
+
+    void deleteAllCommentByPostId(Long id);
+
     List<Comment> getAllCommentByPostId(Long id);
 
     //Comment save(Comment p);
