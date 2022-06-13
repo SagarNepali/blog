@@ -31,9 +31,9 @@ public class BlogService {
         return postProxyService.getAll();
     }
 
-    public List<Post> getAllPostsByUserId(Long id){ return postProxyService.getAllPostByUserId(id);}
+    public List<Post> getAllPostsByUserId(Long userId){ return postProxyService.getAllPostByUserId(userId);}
 
-    public List<Comment> getAllCommentByPostId(Long id){ return commentProxyService.getAllCommentByPostId(id);}
+    public List<Comment> getAllCommentByPostId(Long postId){ return commentProxyService.getAllCommentByPostId(postId);}
 
     public void savePost(Post p){
         postProxyService.save(p);
@@ -43,11 +43,11 @@ public class BlogService {
         postProxyService.delete(id);
     }
 
-    public Post getPostById(Long id){
-        Post p =  postProxyService.getById(id);
+    public Post getPostById(Long postId){
+        Post p =  postProxyService.getById(postId);
         List<Comment> commentList;
         if(p != null){
-            commentList = commentProxyService.getAllCommentByPostId(id);
+            commentList = commentProxyService.getAllCommentByPostId(postId);
             p.setCommentList(commentList);
         }
         return p;

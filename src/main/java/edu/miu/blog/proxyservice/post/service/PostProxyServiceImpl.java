@@ -20,7 +20,7 @@ public class PostProxyServiceImpl implements PostProxyService{
 
     private static final String POST_GET_ALL_URI="http://localhost:8081/api/v1/posts";
     private static final String POST_WITH_ID_URI="http://localhost:8081/api/v1/posts/{id}";
-    private static final String POST_GET_ALLPOSTBYUSERID_URI="http://localhost:8081/api/v1/posts/user/{userId}";
+    private static final String POST_GET_ALL_POST_BY_USER_ID_URI="http://localhost:8081/api/v1/posts/users/{userId}";
 
     @Autowired
     RestTemplate restTemplate;
@@ -36,7 +36,7 @@ public class PostProxyServiceImpl implements PostProxyService{
     public List<Post> getAllPostByUserId(Long userId){
         Map<String, Long> params = new HashMap<>();
         params.put("userId",userId);
-        ResponseEntity<List<Post>> response  = restTemplate.exchange(POST_GET_ALLPOSTBYUSERID_URI, HttpMethod.GET, null, new ParameterizedTypeReference<List<Post>>(){},params);
+        ResponseEntity<List<Post>> response  = restTemplate.exchange(POST_GET_ALL_POST_BY_USER_ID_URI, HttpMethod.GET, null, new ParameterizedTypeReference<List<Post>>(){},params);
         return response.getBody();
     }
 

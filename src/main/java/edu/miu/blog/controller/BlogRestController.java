@@ -59,7 +59,7 @@ public class BlogRestController {
         return blogService.getPostById(postId);
     }
 
-    @GetMapping("/posts/user/{userId}")
+    @GetMapping("/posts/users/{userId}")
     public List<Post> getAllPostByUserId(@PathVariable("userId") Long userId){
         return blogService.getAllPostsByUserId(userId);
     }
