@@ -16,5 +16,7 @@ public interface PostProxyService {
 
     void delete(Long id);
 
+    void deleteAllPostsByUserId(Long userId);
+
     void save(Post p);
 }

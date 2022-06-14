@@ -50,10 +50,10 @@ public class BlogRestController {
         comment.setUserId(userId);
         comment.setPostId(postId);
         blogService.saveComment(comment);
-        return new ResponseEntity<>("Post created", HttpStatus.CREATED);
+        return new ResponseEntity<>("Comment created", HttpStatus.CREATED);
     }
 
-
+//
     @GetMapping("/posts/{postId}")
     public Post getPostById(@PathVariable("postId") Long postId){
         return blogService.getPostById(postId);
@@ -71,7 +71,16 @@ public class BlogRestController {
     }
 
 
+    @DeleteMapping("/users/{userId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteUser(@PathVariable("userId") Long userId){
+        blogService.deleteUser(userId);
+    }
 
-
+    @DeleteMapping("/posts/{postId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletePost(@PathVariable Long postId){
+        blogService.deletePost(postId);
+    }
 
 }

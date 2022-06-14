@@ -39,8 +39,13 @@ public class BlogService {
         postProxyService.save(p);
     }
 
-    public void deletePost(Long id){
-        postProxyService.delete(id);
+    public void deletePost(Long postId){
+        postProxyService.delete(postId);
+        commentProxyService.deleteAllCommentByPostId(postId);
+    }
+    public void deleteAllPostByUserId(Long userId){
+        postProxyService.deleteAllPostsByUserId(userId);
+        commentProxyService.deleteAllCommentByUserId(userId);
     }
 
     public Post getPostById(Long postId){
@@ -81,7 +86,10 @@ public class BlogService {
 
     public void deleteUser(Long id){
         userProxyService.delete(id);
+        deleteAllPostByUserId(id);
     }
+
+
 
     public User getUserById(Long id){
         return (User)userProxyService.get(id);
