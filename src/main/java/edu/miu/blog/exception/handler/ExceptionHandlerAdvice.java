@@ -27,4 +27,16 @@ public class ExceptionHandlerAdvice {
 
         return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<?> illegalArgs(Exception ex) {
+        ApiError error = ApiError
+                .builder()
+                .description(ex.getMessage())
+                .message(ex.getMessage())
+                .statusCode(HttpStatus.BAD_REQUEST.toString())
+                .build();
+
+        return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+    }
 }

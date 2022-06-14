@@ -4,6 +4,7 @@ import edu.miu.blog.proxyservice.post.dto.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,8 +42,12 @@ public class PostProxyServiceImpl implements PostProxyService{
     }
 
     @Override
-    public Post getById(Long id) {
-        return restTemplate.getForObject(POST_WITH_ID_URI,Post.class,id);
+    public Post getById(Long id) throws Exception {
+        ResponseEntity<Post> p = restTemplate.getForObject(POST_WITH_ID_URI,ResponseEntity.class,id) ;
+        if(p.getStatusCode()!= HttpStatus.OK){
+            throw new Exception("Post not found with id: "+id);
+        }
+        return p.getBody();
     }
 
     @Override

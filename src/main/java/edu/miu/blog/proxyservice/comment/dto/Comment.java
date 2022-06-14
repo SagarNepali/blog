@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Data
@@ -17,8 +18,9 @@ import java.util.Date;
 public class Comment {
 
     private Long id;
+    @NotNull(message = "Comment message should not be empty")
     private String message;
-    //@JsonProperty("user_id")
+    @NotNull(message = "USER ID cannot be null")
     private Long userId;
     //@JsonProperty("user_id")
     private Long postId;

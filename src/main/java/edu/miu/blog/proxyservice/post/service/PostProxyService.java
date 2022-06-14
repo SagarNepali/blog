@@ -8,7 +8,7 @@ public interface PostProxyService {
 
     List<Post> getAll();
 
-    Post getById(Long id);
+    Post getById(Long id) throws Exception;
 
     List<Post> getAllPostByUserId(Long userId);
 

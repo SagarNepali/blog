@@ -48,7 +48,7 @@ public class BlogService {
         commentProxyService.deleteAllCommentByUserId(userId);
     }
 
-    public Post getPostById(Long postId){
+    public Post getPostById(Long postId) throws Exception {
         Post p =  postProxyService.getById(postId);
         List<Comment> commentList;
         if(p != null){

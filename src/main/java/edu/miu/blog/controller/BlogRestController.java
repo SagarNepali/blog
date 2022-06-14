@@ -33,7 +33,7 @@ public class BlogRestController {
 
     @PostMapping("/users")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<?> createUser(@RequestBody User user) {
+    public ResponseEntity<?> createUser(@RequestBody @Valid User user) {
         blogService.saveUser(user);
         return new ResponseEntity<>("User created", HttpStatus.CREATED);
     }
@@ -47,7 +47,7 @@ public class BlogRestController {
 
     @PostMapping("/users/{userId}/posts/{postId}/comments")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<?> createComment(@RequestBody Comment comment, @PathVariable("userId") Long userId, @PathVariable("postId") Long postId) {
+    public ResponseEntity<?> createComment(@RequestBody @Valid Comment comment, @PathVariable("userId") Long userId, @PathVariable("postId") Long postId) {
         comment.setUserId(userId);
         comment.setPostId(postId);
         blogService.saveComment(comment);
@@ -56,7 +56,7 @@ public class BlogRestController {
 
 //
     @GetMapping("/posts/{postId}")
-    public Post getPostById(@PathVariable("postId") Long postId){
+    public Post getPostById(@PathVariable("postId") Long postId) throws Exception {
         return blogService.getPostById(postId);
     }
 
