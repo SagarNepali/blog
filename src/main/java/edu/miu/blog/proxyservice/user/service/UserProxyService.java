@@ -11,6 +11,6 @@ public interface UserProxyService {
     public abstract User get(Long id);
     public abstract List<User> getAll();
     public abstract User create(User user);
-    public abstract void delete(Long id);
-    public abstract void update(User user);
+    public abstract String delete(Long id);
+    public abstract User update(User user, Long id);
 }

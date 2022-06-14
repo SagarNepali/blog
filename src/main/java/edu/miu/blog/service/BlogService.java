@@ -84,9 +84,9 @@ public class BlogService {
         userProxyService.create(p);
     }
 
-    public void deleteUser(Long id){
-        userProxyService.delete(id);
+    public String deleteUser(Long id){
         deleteAllPostByUserId(id);
+        return userProxyService.delete(id);
     }
 
 
@@ -94,4 +94,9 @@ public class BlogService {
     public User getUserById(Long id){
         return (User)userProxyService.get(id);
     }
+
+    public void updateUser(User user, Long id){
+        userProxyService.update(user, id);
+    }
+
 }

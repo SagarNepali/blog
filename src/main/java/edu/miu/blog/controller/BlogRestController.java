@@ -54,6 +54,31 @@ public class BlogRestController {
         return new ResponseEntity<>("Comment created", HttpStatus.CREATED);
     }
 
+
+    @GetMapping("/users/{id}")
+    public ResponseEntity<?> getOneUser(@PathVariable Long id){
+        return new ResponseEntity<>(blogService.getUserById(id), HttpStatus.OK);
+    }
+
+    @PutMapping("/users/{id}")
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody User user){
+        User userInDatabase = blogService.getUserById(id);
+        if(userInDatabase == null){
+            return  new ResponseEntity<>("User doens't exist", HttpStatus.NOT_FOUND);
+        }
+        blogService.updateUser(user, id);
+        return new ResponseEntity<>(blogService.getUserById(id), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        User response = blogService.getUserById(id);
+        if(response == null){
+            return new ResponseEntity<>("User does not exist with this id", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(blogService.deleteUser(id), HttpStatus.OK);
+    }
+
 //
     @GetMapping("/posts/{postId}")
     public Post getPostById(@PathVariable("postId") Long postId) throws Exception {

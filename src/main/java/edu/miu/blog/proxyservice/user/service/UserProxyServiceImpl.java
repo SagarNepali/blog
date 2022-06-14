@@ -21,14 +21,14 @@ public class UserProxyServiceImpl implements UserProxyService {
     @Override
     public List<User> getAll() {
         ResponseEntity<List<User>> response = restTemplate
-                .exchange(pplUrl, HttpMethod.GET, null,
+                .exchange(pplUrl + "/", HttpMethod.GET, null,
                         new ParameterizedTypeReference<List<User>>() {});
         return response.getBody();
     }
 
     @Override
     public User get(Long id) {
-        return restTemplate.getForObject(userUrl, User.class, id);
+        return restTemplate.getForObject(pplUrl + "/" + id, User.class);
     }
 
     @Override
@@ -37,13 +37,21 @@ public class UserProxyServiceImpl implements UserProxyService {
     }
 
     @Override
-    public void delete(Long id) {
-        restTemplate.delete(userUrl, id);
+    public String delete(Long id) {
+        try {
+            restTemplate.delete(userUrl, id);
+            return "Deleted";
+        }catch (Exception e){
+            return e.getMessage();
+        }
+
     }
 
     @Override
-    public void update(User user) {
-        restTemplate.put(userUrl, user, user.getId());
+    public User update(User user, Long id) {
+        restTemplate.put(pplUrl + "/" + id, user, user.getId());
+
+        return restTemplate.getForObject(pplUrl + "/" + id, User.class);
     }
 
 }
