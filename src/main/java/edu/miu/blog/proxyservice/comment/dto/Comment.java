@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-/* DTO */
+/* DTO for comment on blogpost */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
