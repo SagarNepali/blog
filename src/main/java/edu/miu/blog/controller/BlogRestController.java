@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-
+/*REST CONTROLLER*/
 @RestController
 @RequestMapping("/api/v1/blogs")
 public class BlogRestController {
