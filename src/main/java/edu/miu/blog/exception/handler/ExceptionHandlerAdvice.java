@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.validation.ConstraintViolationException;
 import java.util.stream.Collectors;
-
+/* COntroller Advice AOP to handle all the rest exceptions */
 @RestControllerAdvice
 public class ExceptionHandlerAdvice {
 
